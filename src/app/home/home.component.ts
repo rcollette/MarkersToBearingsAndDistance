@@ -50,10 +50,7 @@ export class HomeComponent implements OnInit {
     this.pointsToBearingsAndDistance(geoJsonData, this.declinationControl.value);
   }
 
-  pointsToBearingsAndDistance(geoJsonData: FeatureCollection<Point>, declination: number) {
-    if (!geoJsonData || !geoJsonData.features || geoJsonData.features.length < 2) {
-      throw new Error('Invalid GeoJsonData.  Must have at least 2 features.');
-    }
+  private pointsToBearingsAndDistance(geoJsonData: FeatureCollection<Point>, declination: number) {
     const results: IBearingAndDistance[] = [];
     for (let i = 1; i < geoJsonData.features.length; i++) {
       results.push(this.calculateDistanceAndBearing(geoJsonData.features[i - 1], geoJsonData.features[i], declination));
