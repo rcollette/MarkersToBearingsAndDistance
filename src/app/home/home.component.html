@@ -1,0 +1,60 @@
+<div class="container d-print-none">
+  <div class="row mb-2">
+    <form (ngSubmit)="calculate()" [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-2">
+
+          <label class="form-label" for="geoJson">GeoJson FeatureCollection of Points</label>
+        </div>
+        <div class="col">
+            <textarea [formControl]="geoJsonDataControl" cols="50" id="geoJson"
+                      pInputTextarea
+                      placeholder="GeoJSON FeatureCollection<Point>"
+                      rows="10"
+                      type="text"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="form-label" for="declination">Declination</label>
+        </div>
+        <div class="col">
+          <input [formControl]="declinationControl" id="declination" pInputText placeholder="Declination" type="number">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input class="p-button" label="Calculate" pButton type="submit">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<p-table [tableStyle]="{ 'min-width': '50rem' }" [value]="(bearingAndDistance|async) || []">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Origin Name</th>
+      <th>Origin Coordinates</th>
+      <th>Target Name</th>
+      <th>Target Coordinates</th>
+      <th>True Bearing</th>
+      <th>Magnetic Bearing</th>
+      <th>Distance (Ft)</th>
+    </tr>
+  </ng-template>
+  <ng-template let-item pTemplate="body">
+    <tr>
+      <td>{{ item.originFeature.properties.title }}</td>
+      <td>{{ item.originFeature.geometry.coordinates[1]|number: '1.4' }}
+        ,{{ item.originFeature.geometry.coordinates[0]|number: '1.4' }}
+      </td>
+      <td>{{ item.targetFeature.properties.title }}</td>
+      <td>{{ item.targetFeature.geometry.coordinates[1]|number:'1.4' }}
+        ,{{ item.targetFeature.geometry.coordinates[0]|number:'1.4' }}
+      </td>
+      <td>{{ item.trueBearingDegrees | number:'1.0-0' }}</td>
+      <td>{{ item.magneticBearingDegrees | number:'1.0-0' }}</td>
+      <td>{{ item.distanceFeet| number:'1.0-0' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
