@@ -1,7 +1,7 @@
 <div class="container d-print-none">
   <div class="row mb-2">
-    <form (ngSubmit)="calculate()" [formGroup]="formGroup">
-      <div class="row">
+    <form (ngSubmit)="submit()" [formGroup]="formGroup">
+      <div class="row mb-2">
         <div class="col-2">
 
           <label class="form-label" for="geoJson">GeoJson FeatureCollection of Points</label>
@@ -14,9 +14,16 @@
                       type="text"></textarea>
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-2">
         <div class="col">
           <input class="p-button" label="Calculate" pButton type="submit">
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col">
+          <p-fileUpload [files]="files" (uploadHandler)="onFileSelected($event)" [auto]="true" [customUpload]="true"
+                        accept=".json" chooseLabel="Select GeoJson file" mode="basic"
+                        url="https://www.primefaces.org/cdn/api/upload.php"></p-fileUpload>
         </div>
       </div>
     </form>
