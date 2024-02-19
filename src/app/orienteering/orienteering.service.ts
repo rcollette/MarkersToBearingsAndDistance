@@ -45,7 +45,6 @@ export class OrienteeringService {
     // Formula to calculate the True Bearing
     let trueBearingDegrees = this.trueBearing(lat2, lon2, lon1, lat1);
     const info = geomagnetism.model().point([originPosition[1],originPosition[0]]);
-    console.log('info',info);
     // Adjust True Bearing to Magnetic Bearing
     const magneticBearingDegrees = trueBearingDegrees + info.decl;
 
